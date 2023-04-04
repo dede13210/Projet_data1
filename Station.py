@@ -16,4 +16,4 @@ class Station:
         self.cm_tomber = value
 
     def list(self):
-        return self.nom+" "+self.lien+" "+"cm neige en haut"+self.cm_neige+" neige tomber "+self.cm_tomber
+        return [self.nom,self.lien,self.cm_neige,self.cm_tomber]

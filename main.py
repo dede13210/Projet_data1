@@ -22,20 +22,6 @@ def create_station(nom, lien):
 
 if __name__ == '__main__':
 
-    """
-    list_stations = {"avoriaz": "https://www.skiinfo.fr/alpes-du-nord/avoriaz/bulletin-neige",
-                     "la tonsuire": "https://www.skiinfo.fr/alpes-du-nord/la-toussuire/bulletin-neige",
-                     "la rosiere": "https://www.skiinfo.fr/alpes-du-nord/la-rosiere-1850/bulletin-neige",
-                     "alpe dhuez": "https://www.skiinfo.fr/alpes-du-nord/alpe-dhuez/bulletin-neige",
-                     "courchevel": "https://www.skiinfo.fr/alpes-du-nord/courchevel/bulletin-neige",
-                     "la clusaz": "https://www.skiinfo.fr/alpes-du-nord/la-clusaz/bulletin-neige",
-                     "la plage": "https://www.skiinfo.fr/alpes-du-nord/la-plagne/bulletin-neige",
-                     "le grand bornand": "https://www.skiinfo.fr/alpes-du-nord/le-grand-bornand/bulletin-neige",
-                     "val thorens": "https://www.skiinfo.fr/alpes-du-nord/val-thorens/bulletin-neige",
-                     "tignes": "https://www.skiinfo.fr/alpes-du-nord/tignes/bulletin-neige",
-                     "flaine": "https://www.skiinfo.fr/alpes-du-nord/flaine/bulletin-neige"}
-    """
-
     selector_neige_haut = '#__next > div.container > div.styles_layout__2aTIJ.layout_layoutContainer__27fok.pt-3 > ' \
                           'div > article:nth-child(2) > div > div.styles_box__3xo2X > div.styles_info__3F7Vv > div > ' \
                           'div:nth-child(2) > figure > div:nth-child(2) > figcaption'
@@ -60,16 +46,14 @@ if __name__ == '__main__':
         list_Station.append(create_station(key, value))
 
     driver.quit()
-    list_csv=[]
+    list_csv = []
+    list_Station.remove(None)
     for station in list_Station:
-        station.analyse_station()
-        list_csv.append(station.list)
+        try:
+            station.analyse_station()
+            list_csv.append(station.list())
+        except:
+            print("none type exception")
     with open('enneigement.csv', 'w', newline='') as f:
         writer = csv.writer(f)
-        writer.writerow(list_csv)
-    """
-        for key, values in list_stations.items():
-        create_station(key,values)
-    for Station in list_objet:
-        Station.display()
-    """
+        writer.writerows(list_csv)
