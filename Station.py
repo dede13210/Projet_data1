@@ -14,3 +14,6 @@ class Station:
 
     def set_cm_tomber(self, value):
         self.cm_tomber = value
+
+    def list(self):
+        return self.nom+" "+self.lien+" "+"cm neige en haut"+self.cm_neige+" neige tomber "+self.cm_tomber

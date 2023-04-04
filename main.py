@@ -4,7 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
-
+import csv
 from Station import Station
 
 
@@ -60,10 +60,13 @@ if __name__ == '__main__':
         list_Station.append(create_station(key, value))
 
     driver.quit()
+    list_csv=[]
     for station in list_Station:
         station.analyse_station()
-        station.display()
-
+        list_csv.append(station.list)
+    with open('enneigement.csv', 'w', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(list_csv)
     """
         for key, values in list_stations.items():
         create_station(key,values)
